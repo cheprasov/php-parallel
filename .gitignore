@@ -1,0 +1,6 @@
+.idea/
+.git/
+vendor/
+test.php
+composer.lock
+tools/back/

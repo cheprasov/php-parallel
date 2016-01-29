@@ -1,0 +1,26 @@
+{
+    "name": "cheprasov/php-parallel",
+    "version": "0.1.0",
+    "description": "",
+    "homepage": "http://github.com/cheprasov/php-parallel",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Alexander Cheprasov",
+            "email": "cheprasov.84@ya.ru"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Parallel\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.1.*",
+        "cheprasov/php-simple-profiler": "master-dev"
+    }
+}
