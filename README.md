@@ -1,7 +1,7 @@
 # php-parallel
 __in development__
 
-__NOTE:__ You can use it, but I have not wrote tests for it yet.
+__NOTE:__ You can use it, but I have not wrote all tests for it yet. It is in process.
 
 The class allows you to run multiple operations in multiple threads. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution. It is very useful if you run several independent queries, for example.
 
@@ -65,3 +65,14 @@ print_r(microtime(true) - $time);
 //    )
 //    2.0130307674408
 ```
+
+## Running tests
+
+To run tests type in console:
+
+    ./vendor/bin/phpunit
+
+
+## Something doesn't work
+
+Feel free to fork project, fix bugs and finally request for pull
