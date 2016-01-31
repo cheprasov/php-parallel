@@ -13,7 +13,7 @@ namespace Parallel\Storage;
 /**
  * @link http://php.net/manual/ru/book.apcu.php
  */
-class ApcStorage implements StorageInterface {
+class ApcuStorage implements StorageInterface {
 
     /**
      * @param string $key
@@ -55,11 +55,14 @@ class ApcStorage implements StorageInterface {
      */
     public function del($key, $fields) {
         if (is_string($fields)) {
-            apcu_delete($this->getKeyByField($key, $fields));
+            return (int) apcu_delete($this->getKeyByField($key, $fields));
         }
-        return array_map(function($field) use ($key) {
-            return apcu_delete($this->getKeyByField($key, $field));
+        $data = array_map(function($field) use ($key) {
+            return (int) apcu_delete($this->getKeyByField($key, $field));
         }, $fields);
+
+        $result = array_count_values($data);
+        return empty($result[1]) ? 0 : $result[1];
     }
 
 }
