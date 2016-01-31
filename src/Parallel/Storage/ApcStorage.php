@@ -10,6 +10,9 @@
  */
 namespace Parallel\Storage;
 
+/**
+ * @link http://php.net/manual/ru/book.apcu.php
+ */
 class ApcStorage implements StorageInterface {
 
     /**
