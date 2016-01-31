@@ -1,7 +1,7 @@
 # php-parallel
 __in development__
 
-__NOTE:__ You can use it, but I have not wrote tests for it yet.
+__NOTE:__ You can use it, but I have not wrote all tests for it yet. It is in process.
 
 The class allows you to run multiple operations in multiple threads. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution. It is very useful if you run several independent queries, for example.
 
@@ -16,8 +16,8 @@ use Parallel\Parallel;
 
 // EXAMPLE, how run parallel 3 operations.
 
-// Using Parallel via ApcStorage (APCu, see http://php.net/manual/ru/book.apcu.php)
-$Parallel = new Parallel(new \Parallel\Storage\ApcStorage());
+// Using Parallel via ApcuStorage (APCu, see http://php.net/manual/ru/book.apcu.php)
+$Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
 
 // if you have not APCu, you can use Memcached as Storage.
 // Note: you can't store object in Memcached
@@ -41,11 +41,13 @@ $Parallel->run('obj', function() {
 
 // 3th operation
 // do some thing ...
+sleep(2);
 
 // waiting for <foo> and <obj>
 // and get results
 $result = $Parallel->wait(['foo', 'obj']);
 print_r($result);
+// 3 parallel operations by 2 seconds take about 2 seconds, instead 6 seconds.
 print_r(microtime(true) - $time);
 //    Array
 //    (
@@ -63,3 +65,14 @@ print_r(microtime(true) - $time);
 //    )
 //    2.0130307674408
 ```
+
+## Running tests
+
+To run tests type in console:
+
+    ./vendor/bin/phpunit
+
+
+## Something doesn't work
+
+Feel free to fork project, fix bugs and finally request for pull

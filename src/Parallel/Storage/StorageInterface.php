@@ -36,7 +36,7 @@ interface StorageInterface {
     /**
      * @param string $key
      * @param string|string[] $fields
-     * @return int Count of deleted fields
+     * @return int|bool Count of deleted fields or bool
      */
     public function del($key, $fields);
 
