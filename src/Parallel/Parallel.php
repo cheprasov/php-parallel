@@ -30,6 +30,7 @@ class Parallel {
     }
 
     /**
+     * Run a new fork with some name
      * @param string $name
      * @param \Closure|string|array $callback
      * @return bool
@@ -58,17 +59,19 @@ class Parallel {
     }
 
     /**
-     * @param array $names
+     * Wait fork by names
+     * @param string|string[] $names
      * @return array
      */
-    public function wait(array $names = []) {
-        foreach ($names as $name) {
+    public function wait($names) {
+        $namesArr = (array) $names;
+        foreach ($namesArr as $name) {
             pcntl_waitpid($this->pids[$name], $status);
             unset($this->pids[$name]);
         }
-        $result = $this->Storage->get($this->key, $names);
-        $this->Storage->del($this->key, $names);
-        return $result;
+        $result = $this->Storage->get($this->key, $namesArr);
+        $this->Storage->del($this->key, $namesArr);
+        return is_string($names) ? $result[$names] : $result;
     }
 
     /**

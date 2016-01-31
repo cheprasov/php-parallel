@@ -1,15 +1,13 @@
-# php-parallel
-__in development__
-
-__NOTE:__ You can use it, but I have not wrote tests for it yet.
-
-The class allows you to run multiple operations in multiple threads. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution. It is very useful if you run several independent queries, for example.
-
-## Using
-
-```php
 <?php
-
+/**
+ * This file is part of RedisClient.
+ * git: https://github.com/cheprasov/php-parallel
+ *
+ * (C) Alexander Cheprasov <cheprasov.84@ya.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 require (dirname(__DIR__).'/vendor/autoload.php');
 
 use Parallel\Parallel;
@@ -62,4 +60,4 @@ print_r(microtime(true) - $time);
 //            )
 //    )
 //    2.0130307674408
-```
+

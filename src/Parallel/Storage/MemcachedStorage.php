@@ -29,10 +29,16 @@ class MemcachedStorage implements StorageInterface {
         $this->options = $options;
     }
 
+    /**
+     * @param \Memcached|null $Memcached
+     */
     public function setMemcached(\Memcached $Memcached = null) {
         $this->Memcached = $Memcached;
     }
 
+    /**
+     * @return \Memcached
+     */
     public function getMemcached() {
         if (!$this->Memcached) {
             $this->Memcached = new \Memcached();
@@ -51,6 +57,15 @@ class MemcachedStorage implements StorageInterface {
     }
 
     /**
+     * @param string $key
+     * @return string
+     */
+    protected function getFieldFromKey($key) {
+        $data = explode(':', $key);
+        return end($data);
+    }
+
+    /**
      * @inheritdoc
      */
     public function setup() {
@@ -61,7 +76,8 @@ class MemcachedStorage implements StorageInterface {
      * @inheritdoc
      */
     public function set($key, $field, $value, $expire = 0) {
-        $this->getMemcached()->set($this->getKeyByField($key, $field), $value, $expire ?: null);
+        $serialized = $this->serialize($value);
+        $this->getMemcached()->set($this->getKeyByField($key, $field), $serialized, $expire ?: null);
     }
 
     /**
@@ -69,12 +85,17 @@ class MemcachedStorage implements StorageInterface {
      */
     public function get($key, $fields) {
         if (is_string($fields)) {
-            return $this->getMemcached()->get($this->getKeyByField($key, $fields));
+            $data = $this->getMemcached()->get($this->getKeyByField($key, $fields));
+            return $this->unserialize($data);
         }
-        $result = $this->getMemcached()->getMulti(array_map(function($field) use ($key) {
+        $data = $this->getMemcached()->getMulti(array_map(function($field) use ($key) {
             return $this->getKeyByField($key, $field);
         }, $fields));
-        return array_combine($fields, array_values($result));
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[$this->getFieldFromKey($key)] = $this->unserialize($value);
+        }
+        return $result;
     }
 
     /**
@@ -87,6 +108,22 @@ class MemcachedStorage implements StorageInterface {
         return $this->getMemcached()->deleteMulti(array_map(function($field) use ($key) {
             return $this->getKeyByField($key, $field);
         }, $fields));
+    }
+
+    /**
+     * @param mixed $data
+     * @return string
+     */
+    protected function serialize($data) {
+        return json_encode($data);
+    }
+
+    /**
+     * @param string $data
+     * @return mixed
+     */
+    protected function unserialize($data) {
+        return json_decode($data, true);
     }
 
 }
