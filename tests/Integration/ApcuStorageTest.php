@@ -14,7 +14,7 @@ use Parallel\Storage\ApcuStorage;
 /**
  * @see \Parallel\Storage\ApcuStorage
  */
-class AcpuStorageTest extends \PHPUnit_Framework_TestCase{
+class ApcuStorageTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @see \Parallel\Storage\ApcuStorage::set

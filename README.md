@@ -3,7 +3,7 @@ __in development__
 
 __NOTE:__ You can use it, but I have not wrote all tests for it yet. It is in process.
 
-The class allows you to run multiple operations in multiple threads. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution. It is very useful if you run several independent queries, for example.
+The class allows you to run multiple operations parallel in different processes and send results to the main process. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution, or if you run several independent queries, for example, queries to different data bases.
 
 ## Using
 
@@ -20,7 +20,7 @@ use Parallel\Parallel;
 $Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
 
 // if you have not APCu, you can use Memcached as Storage.
-// Note: you can't store object in Memcached
+// Note: you can't store objects in Memcached and you can't store binary strings (use <base64> functions)
 //    $Parallel = new Parallel(new \Parallel\Storage\MemcachedStorage([
 //        'servers' => [['127.0.0.1', 11211]]
 //    ]));

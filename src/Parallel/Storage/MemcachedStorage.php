@@ -77,7 +77,7 @@ class MemcachedStorage implements StorageInterface {
      */
     public function set($key, $field, $value, $expire = 0) {
         $serialized = $this->serialize($value);
-        $this->getMemcached()->set($this->getKeyByField($key, $field), $serialized, $expire ?: null);
+        return $this->getMemcached()->set($this->getKeyByField($key, $field), $serialized, $expire ?: null);
     }
 
     /**
@@ -103,11 +103,14 @@ class MemcachedStorage implements StorageInterface {
      */
     public function del($key, $fields) {
         if (is_string($fields)) {
-            return $this->getMemcached()->delete($this->getKeyByField($key, $fields));
+            return (int) $this->getMemcached()->delete($this->getKeyByField($key, $fields));
         }
-        return $this->getMemcached()->deleteMulti(array_map(function($field) use ($key) {
-            return $this->getKeyByField($key, $field);
-        }, $fields));
+        // Because method <deleteMulti> does not work well
+        $count = 0;
+        foreach ($fields as $field) {
+            $count += (int) $this->getMemcached()->delete($this->getKeyByField($key, $field));
+        }
+        return $count;
     }
 
     /**
