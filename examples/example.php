@@ -18,7 +18,7 @@ use Parallel\Parallel;
 $Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
 
 // if you have not APCu, you can use Memcached as Storage.
-// Note: you can't store object in Memcached
+// Note: you can't store objects in Memcached
 //    $Parallel = new Parallel(new \Parallel\Storage\MemcachedStorage([
 //        'servers' => [['127.0.0.1', 11211]]
 //    ]));
