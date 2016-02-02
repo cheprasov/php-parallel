@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of RedisClient.
+ * This file is part of Parallel.
  * git: https://github.com/cheprasov/php-parallel
  *
  * (C) Alexander Cheprasov <cheprasov.84@ya.ru>
@@ -18,7 +18,7 @@ use Parallel\Parallel;
 $Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
 
 // if you have not APCu, you can use Memcached as Storage.
-// Note: you can't store objects in Memcached
+// Note: you can't store objects in Memcached and you can't store binary strings (use <base64> functions)
 //    $Parallel = new Parallel(new \Parallel\Storage\MemcachedStorage([
 //        'servers' => [['127.0.0.1', 11211]]
 //    ]));

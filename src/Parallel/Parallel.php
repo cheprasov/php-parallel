@@ -1,10 +1,20 @@
 <?php
-
+/**
+ * This file is part of Parallel.
+ * git: https://github.com/cheprasov/php-parallel
+ *
+ * (C) Alexander Cheprasov <cheprasov.84@ya.ru>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Parallel;
 
 use Parallel\Storage\StorageInterface;
 
 class Parallel {
+
+    const VERSION = '1.0.0';
 
     /**
      * @var StorageInterface

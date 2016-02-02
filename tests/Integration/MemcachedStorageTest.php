@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of RedisClient.
+ * This file is part of Parallel.
  * git: https://github.com/cheprasov/php-parallel
  *
  * (C) Alexander Cheprasov <cheprasov.84@ya.ru>
