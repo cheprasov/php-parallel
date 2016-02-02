@@ -26,7 +26,7 @@ class Parallel {
      */
     public function __construct(StorageInterface $Storage) {
         $this->Storage = $Storage;
-        $this->setKey(uniqid(posix_getpid() .':', microtime(true)) .':'. mt_rand(1, 9999));
+        $this->setKey(uniqid(posix_getpid() .'-', microtime(true)) .'-'. mt_rand(1, 9999));
     }
 
     /**

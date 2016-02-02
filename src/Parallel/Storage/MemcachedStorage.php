@@ -61,7 +61,7 @@ class MemcachedStorage implements StorageInterface {
      * @return string
      */
     protected function getFieldFromKey($key) {
-        $data = explode(':', $key);
+        $data = explode(':', $key, 2);
         return end($data);
     }
 
