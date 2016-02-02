@@ -1,9 +1,9 @@
 {
     "name": "cheprasov/php-parallel",
-    "version": "0.1.0",
-    "description": "",
+    "version": "1.0.0",
+    "description": "The class allows you to run multiple operations parallel in different processes and send results to the main process. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution, or if you run several independent queries, for example, queries to different data bases",
     "homepage": "http://github.com/cheprasov/php-parallel",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "license": "proprietary",
     "authors": [
         {
