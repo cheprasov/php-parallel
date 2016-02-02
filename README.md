@@ -1,4 +1,4 @@
-# php-parallel
+# Parallel v1.0.0 for PHP >= 5.5
 
 The class allows you to run multiple operations parallel in different processes and send results to the main process. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution, or if you run several independent queries, for example, queries to different data bases.
 
