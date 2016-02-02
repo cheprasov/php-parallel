@@ -1,7 +1,4 @@
 # php-parallel
-__in development__
-
-__NOTE:__ You can use it, but I have not wrote all tests for it yet. It is in process.
 
 The class allows you to run multiple operations parallel in different processes and send results to the main process. Useful if you need to run multiple independent operations simultaneously, instead of sequential execution, or if you run several independent queries, for example, queries to different data bases.
 
