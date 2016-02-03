@@ -26,6 +26,8 @@ $time = microtime(true);
 
 // 1st operation
 $Parallel->run('foo', function() {
+    // You can use Parallel inside run function by creating new objects Parallel.
+    // Example: $Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
     sleep(2);
     return ['hello' => 'world'];
 });
