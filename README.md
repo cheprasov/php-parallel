@@ -65,6 +65,19 @@ print_r(microtime(true) - $time);
 //    2.0130307674408
 ```
 
+## Installation
+
+### Composer
+
+Download composer:
+
+    wget -nc http://getcomposer.org/composer.phar
+
+and add dependency to your project:
+
+    php composer.phar require cheprasov/php-parallel
+
+
 ## Running tests
 
 To run tests type in console:
