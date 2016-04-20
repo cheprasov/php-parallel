@@ -56,6 +56,24 @@ class ParallelTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(['n:1' => 1, 'n:2' => 4, 'n:3' => 9, 'n:4' => 16, 'n:5' => 25], $result);
     }
 
+    public function test_waitAllViaMemcachedStorage() {
+        $Parallel = new Parallel(new MemcachedStorage(['servers'=>[explode(':', TEST_MEMCACHED_SERVER)]]));
+
+        $time = microtime(true);
+        for ($i = 1; $i <= 5; ++$i) {
+            $Parallel->run('n:'. $i, function() use ($i) {
+                sleep($i);
+                return $i * $i;
+            });
+        }
+        $result = $Parallel->wait();
+        $time = microtime(true) - $time;
+        $this->assertGreaterThanOrEqual(5, $time);
+        $this->assertLessThan(6, $time);
+
+        $this->assertSame(['n:1' => 1, 'n:2' => 4, 'n:3' => 9, 'n:4' => 16, 'n:5' => 25], $result);
+    }
+
     public function test_nestedViaApcuStorage() {
         $Parallel = new Parallel(new ApcuStorage());
 

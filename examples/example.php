@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 require (dirname(__DIR__).'/vendor/autoload.php');
-
 use Parallel\Parallel;
 
-// EXAMPLE, how run parallel 3 operations.
+// EXAMPLE, how to run parallel 3 operations.
 
 // Using Parallel via ApcuStorage (APCu, see http://php.net/manual/ru/book.apcu.php)
 $Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
@@ -43,12 +42,14 @@ $Parallel->run('obj', function() {
 // do some thing ...
 sleep(2);
 
-// waiting for <foo> and <obj>
-// and get results
+// waiting for <foo> and <obj> and get results.
+// use wait() without parameters for wait all forks. Example: $Parallel->wait();
 $result = $Parallel->wait(['foo', 'obj']);
+
 print_r($result);
-// 3 parallel operations by 2 seconds take about 2 seconds, instead 6 seconds.
 print_r(microtime(true) - $time);
+// 3 parallel operations by 2 seconds take about 2 seconds, instead 6 seconds.
+
 //    Array
 //    (
 //        [foo] => Array

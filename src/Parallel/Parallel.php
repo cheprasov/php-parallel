@@ -14,7 +14,7 @@ use Parallel\Storage\StorageInterface;
 
 class Parallel {
 
-    const VERSION = '1.0.0';
+    const VERSION = '1.1.0';
 
     /**
      * @var StorageInterface
@@ -69,13 +69,16 @@ class Parallel {
     }
 
     /**
-     * Wait fork by names
-     * @param string|string[] $names
+     * Wait fork by names or all (without parameters)
+     * @param string|string[]|null $names
      * @return array
      */
-    public function wait($names) {
-        $namesArr = (array) $names;
+    public function wait($names = null) {
+        $namesArr = !isset($names) ? array_keys($this->pids) : (array) $names;
         foreach ($namesArr as $name) {
+            if (!isset($this->pids[$name])) {
+                continue;
+            }
             pcntl_waitpid($this->pids[$name], $status);
             unset($this->pids[$name]);
         }
