@@ -32,15 +32,6 @@ before_install:
       echo "apc.enabled = 1" >> $PHP_INI;
       echo "apc.enable_cli = 1" >> $PHP_INI;
     fi;
-  - |
-    if [[ $TRAVIS_PHP_VERSION = 'hhvm' ]]; then
-      echo "extension = memcached.so" >> $PHP_INI;
-      echo yes | pecl install apcu-4.0.10;
-      echo "extension = apc.so" >> $PHP_INI;
-      echo "extension = apcu.so" >> $PHP_INI;
-      echo "apc.enabled = 1" >> $PHP_INI;
-      echo "apc.enable_cli = 1" >> $PHP_INI;
-    fi;
 
 install:
   - composer install
