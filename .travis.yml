@@ -1,0 +1,42 @@
+language: php
+php:
+  - '5.5'
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: '7.1'
+    - php: hhvm
+
+before_install:
+  - PHP_INI=~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
+  - |
+    if [[ $TRAVIS_PHP_VERSION =~ 5.[56] ]]; then
+      echo "extension = memcached.so" >> $PHP_INI;
+      echo yes | pecl install apcu-4.0.10;
+      echo "apc.enabled = 1" >> $PHP_INI;
+      echo "apc.enable_cli = 1" >> $PHP_INI;
+      phpenv config-rm xdebug.ini;
+    fi;
+  - |
+    if [[ $TRAVIS_PHP_VERSION =~ 7.[10] ]]; then
+      apt-get install -y php-memcached;
+      echo "extension = memcached.so" >> $PHP_INI;
+      echo yes | pecl install apcu-5.1.2;
+      echo "apc.enabled = 1" >> $PHP_INI;
+      echo "apc.enable_cli = 1" >> $PHP_INI;
+    fi;
+  - |
+    if [[ $TRAVIS_PHP_VERSION =~ 7.[0] ]]; then
+      phpenv config-rm xdebug.ini;
+    fi;
+
+install:
+  - composer install
+
+services:
+  - memcached
+  - redis

@@ -27,6 +27,7 @@
 
     <php>
         <const name="TEST_MEMCACHED_SERVER" value="127.0.0.1:11211" />
+        <const name="TEST_REDIS_SERVER" value="tcp://127.0.0.1:6379" />
     </php>
 
 </phpunit>
