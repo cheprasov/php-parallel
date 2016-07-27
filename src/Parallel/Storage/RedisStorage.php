@@ -76,10 +76,9 @@ class RedisStorage implements StorageInterface {
             $data = $this->getRedis()->hget($key, $fields);
             return $this->unserialize($data);
         }
-        $data = $this->getRedis()->hmget($key, $fields);
-        $result = [];
-        foreach ($data as $hkey => $value) {
-            $result[$hkey] = $this->unserialize($value);
+        $result = array_combine($fields, $this->getRedis()->hmget($key, $fields));
+        foreach ($result as $field => $value) {
+            $result[$field] = $this->unserialize($value);
         }
         return $result;
     }

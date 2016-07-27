@@ -38,6 +38,7 @@ class MemcachedStorageTest extends \PHPUnit_Framework_TestCase {
      */
     public function test_set() {
         $Memcached = $this->getMemcached();
+        $Memcached->flush();
         $Storage = new MemcachedStorage(['servers' => $this->getTestServers()]);
 
         $this->assertSame(true, $Storage->set('foo', 'bar1', 'hello world'));
@@ -64,6 +65,7 @@ class MemcachedStorageTest extends \PHPUnit_Framework_TestCase {
      */
     public function test_get() {
         $Memcached = $this->getMemcached();
+        $Memcached->flush();
         $Storage = new MemcachedStorage(['servers' => $this->getTestServers()]);
 
         $this->assertSame(true, $Memcached->set('foo1:bar0', ''));
@@ -111,6 +113,7 @@ class MemcachedStorageTest extends \PHPUnit_Framework_TestCase {
      */
     public function test_del() {
         $Memcached = $this->getMemcached();
+        $Memcached->flush();
         $Storage = new MemcachedStorage(['servers' => $this->getTestServers()]);
 
         $this->assertSame(true, $Memcached->set('foo2:bar0', 'foo'));

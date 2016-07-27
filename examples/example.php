@@ -9,17 +9,24 @@
  * file that was distributed with this source code.
  */
 require (dirname(__DIR__).'/vendor/autoload.php');
+
 use Parallel\Parallel;
+use Parallel\Storage\ApcuStorage;
 
 // EXAMPLE, how to run parallel 3 operations.
 
 // Using Parallel via ApcuStorage (APCu, see http://php.net/manual/ru/book.apcu.php)
-$Parallel = new Parallel(new \Parallel\Storage\ApcuStorage());
+$Parallel = new Parallel(new ApcuStorage());
 
-// if you have not APCu, you can use Memcached as Storage.
-// Note: you can't store objects in Memcached and you can't store binary strings (use <base64> functions)
+// if you have not APCu, you can use Memcached or Redis as Storage.
+// Note: you can't store objects in Memcached or Redis and you can't store binary strings (use <base64> functions)
+
 //    $Parallel = new Parallel(new \Parallel\Storage\MemcachedStorage([
 //        'servers' => [['127.0.0.1', 11211]]
+//    ]));
+
+//    $Parallel = new Parallel(new \Parallel\Storage\RedisStorage([
+//        'server' => 'tcp://127.0.0.1:6379'
 //    ]));
 
 $time = microtime(true);

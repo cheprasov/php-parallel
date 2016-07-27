@@ -8,8 +8,8 @@ php:
 
 matrix:
   allow_failures:
-    - php: hhvm
     - php: '7.1'
+    - php: hhvm
 
 before_install:
   - PHP_INI=~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
@@ -19,18 +19,19 @@ before_install:
       echo yes | pecl install apcu-4.0.10;
       echo "apc.enabled = 1" >> $PHP_INI;
       echo "apc.enable_cli = 1" >> $PHP_INI;
+      phpenv config-rm xdebug.ini;
     fi;
   - |
     if [[ $TRAVIS_PHP_VERSION =~ 7.[10] ]]; then
-      # git clone --branch php7 https://github.com/php-memcached-dev/php-memcached.git;
-      # cd php-memcached/; phpize; ./configure; make; make install; cd ..;
       apt-get install -y php-memcached;
       echo "extension = memcached.so" >> $PHP_INI;
       echo yes | pecl install apcu-5.1.2;
-      # echo "extension = apc.so" >> $PHP_INI;
-      # echo "extension = apcu.so" >> $PHP_INI;
       echo "apc.enabled = 1" >> $PHP_INI;
       echo "apc.enable_cli = 1" >> $PHP_INI;
+    fi;
+  - |
+    if [[ $TRAVIS_PHP_VERSION =~ 7.[0] ]]; then
+      phpenv config-rm xdebug.ini;
     fi;
 
 install:
@@ -38,3 +39,4 @@ install:
 
 services:
   - memcached
+  - redis
